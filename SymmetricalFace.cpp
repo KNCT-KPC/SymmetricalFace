@@ -11,31 +11,31 @@ int main(int argc, char *argv[])
 {
 	Mat maskImg, frame, grayframe;
 
-	//ƒEƒBƒ“ƒhƒE¶¬
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ç”Ÿæˆ
 	namedWindow(mainWin, WINDOW_AUTOSIZE);
 	namedWindow(rightWin, WINDOW_AUTOSIZE);
 	namedWindow(leftWin, WINDOW_AUTOSIZE);
 
-	// ƒJƒXƒP[ƒh•ª—ŞŠí‚Ìæ“¾
+	// ã‚«ã‚¹ã‚±ãƒ¼ãƒ‰åˆ†é¡å™¨ã®å–å¾—
 	CascadeClassifier cascade;
 	if (!cascade.load("haarcascade_frontalface_alt.xml")) return -1;
 
-	// ƒJƒƒ‰‚ÌƒLƒƒƒvƒ`ƒƒ
+	// ã‚«ãƒ¡ãƒ©ã®ã‚­ãƒ£ãƒ—ãƒãƒ£
 	VideoCapture cap(0);
 	if (!cap.isOpened()) return -1;
 
 	vector<Rect> faces;
 	while (1) {
-		// ƒJƒƒ‰‰f‘œ‚Ìæ“¾	
+		// ã‚«ãƒ¡ãƒ©æ˜ åƒã®å–å¾—	
 		cap >> frame;
 
-		// ƒOƒŒ[ƒXƒP[ƒ‹•ÏŠ·
+		// ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«å¤‰æ›
 		cvtColor(frame, grayframe, CV_RGB2GRAY);
 
-		// ƒqƒXƒgƒOƒ‰ƒ€‚Ì•½’R‰»
+		// ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã®å¹³å¦åŒ–
 		equalizeHist(grayframe, grayframe);
 
-		// ƒJƒXƒP[ƒh•ª—ŞŠí‚ÅŠç‚Ì’Tõ
+		// ã‚«ã‚¹ã‚±ãƒ¼ãƒ‰åˆ†é¡å™¨ã§é¡”ã®æ¢ç´¢
 		cascade.detectMultiScale(grayframe, faces, 1.2, 2, CV_HAAR_SCALE_IMAGE, Size(30, 30));
 
 		for (vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); ++r) {
@@ -47,25 +47,25 @@ int main(int argc, char *argv[])
 
 			for (int x = 0; x < r->width/2; x++) {
 				for (int y = 0; y < r->height; y++) {
-					// Šç¶”¼–Ê‚Ì‰æ‘f
+					// é¡”å·¦åŠé¢ã®ç”»ç´ 
 					int z1 = y*reverseImg.step + x*reverseImg.channels();
 					int r = reverseImg.data[z1 + 2];
 					int g = reverseImg.data[z1 + 1];
 					int b = reverseImg.data[z1];
 					int a = reverseImg.data[z1 + 3];
-					// ‘‚«Š·‚¦
+					// æ›¸ãæ›ãˆ
 					int z2 = y *dstImg.step + x * dstImg.channels();
 					dstImg.data[z2 + 2] = r;
 					dstImg.data[z2 + 1] = g;
 					dstImg.data[z2] = b;
 
-					// Šç‰E”¼–Ê‚Ì‰æ‘f
+					// é¡”å³åŠé¢ã®ç”»ç´ 
 					z1 = y*cutImg.step + x*cutImg.channels();
 					r = cutImg.data[z1 + 2];
 					g = cutImg.data[z1 + 1];
 					b = cutImg.data[z1];
 					a = cutImg.data[z1 + 3];
-					// ‘‚«Š·‚¦
+					// æ›¸ãæ›ãˆ
 					z2 = y *reverseImg.step + x * reverseImg.channels();
 					reverseImg.data[z2 + 2] = r;
 					reverseImg.data[z2 + 1] = g;
@@ -77,15 +77,15 @@ int main(int argc, char *argv[])
 			imshow(leftWin, dstImg);
 		}
 
-		// ‰f‘œ‚Ì•\¦
+		// æ˜ åƒã®è¡¨ç¤º
 		imshow(mainWin, frame);
 
 		int key = waitKey(1);
-		if (key == 113) { // q‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
-			break; // whileƒ‹[ƒv‚©‚ç”²‚¯‚éD
+		if (key == 113) { // qãŒæŠ¼ã•ã‚ŒãŸã¨ã
+			break; // whileãƒ«ãƒ¼ãƒ—ã‹ã‚‰æŠœã‘ã‚‹ï¼
 		}
-		else if (key == 115) { // s‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
-			imwrite("img.png", frame); // ƒtƒŒ[ƒ€‰æ‘œ‚ğ•Û‘¶‚·‚éD
+		else if (key == 115) { // sãŒæŠ¼ã•ã‚ŒãŸã¨ã
+			imwrite("img.png", frame); // ãƒ•ãƒ¬ãƒ¼ãƒ ç”»åƒã‚’ä¿å­˜ã™ã‚‹ï¼
 		}
 	}
 	return 1;
