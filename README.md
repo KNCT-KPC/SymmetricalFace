@@ -8,10 +8,10 @@ OpenCVを利用して顔を認識し、顔の左側、右側それぞれの左�
 * Visual Studio 2015
 
 ## OpenCV を Visual Studio から使用するときの設定
-OpenCV 3.4.1をVisual Studio 2017から使用する時の手順(https://qiita.com/h-adachi/items/aad3401b8900438b2acd)そのままです。
+[OpenCV 3.4.1をVisual Studio 2017から使用する時の手順](https://qiita.com/h-adachi/items/aad3401b8900438b2acd)そのままです。
 
 1. OpenCVをインストール
-OpenCV(https://github.com/opencv/opencv/releases)をダウンロードし、任意のフォルダに展開する。 (展開したPATHを "%OPENCV%" とする)
+[OpenCV](https://github.com/opencv/opencv/releases)をダウンロードし、任意のフォルダに展開する。 (展開したPATHを "%OPENCV%" とする)
 
 2. プロジェクトを作成
 ファイル -> 新規作成 -> プロジェクト -> Visual C++ -> Windows コンソールアプリケーション から、「空のプロジェクト」を作成する。
